@@ -1,11 +1,14 @@
 package game.states;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import game.core.GameState;
 import game.entities.Entity;
 import game.entities.Player;
+import game.util.Time;
 
 public class PlayState extends GameState {
 
@@ -31,5 +34,10 @@ public class PlayState extends GameState {
     for (Entity e : entities) {
       e.render(g, alpha);
     }
+
+    g.setFont(new Font("Arial", Font.BOLD, 24));
+    g.setColor(Color.WHITE);
+
+    g.drawString(String.format("%.2f FPS", Math.clamp(1 / Time.deltaTime, 0, 67.67)), 10, 35);
   }
 }
