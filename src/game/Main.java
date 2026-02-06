@@ -6,16 +6,18 @@ public class Main {
 
   public static void main(String[] args) {
     JFrame frame = new JFrame("Java Game Skeleton");
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setResizable(false);
+    GameCanvas canvas = new GameCanvas();
 
-    GamePanel panel = new GamePanel();
-    frame.add(panel);
+    frame.add(canvas);
     frame.pack();
     frame.setLocationRelativeTo(null);
+    frame.setResizable(false);
     frame.setVisible(true);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    Game.init(panel);
-    panel.start();
+    canvas.requestFocus();
+
+    Game.init(canvas);
+    new GameLoop(canvas).start();
   }
 }

@@ -10,7 +10,6 @@ import game.util.Time;
 public class Player extends Entity {
 
   private float speed = 360f;
-  private static final float DIAGONAL_MULTIPLIER = (float) Math.cos(Math.PI / 4);
 
   public Player(float x, float y) {
     this.x = x;
@@ -20,30 +19,32 @@ public class Player extends Entity {
   @Override
   public void update() {
 
-    vx = 0;
-    vy = 0;
-
-    int dx = (KeyInput.isDown(KeyEvent.VK_A) ? -1 : 0) + (KeyInput.isDown(KeyEvent.VK_D) ? 1 : 0);
-    int dy = (KeyInput.isDown(KeyEvent.VK_W) ? -1 : 0) + (KeyInput.isDown(KeyEvent.VK_S) ? 1 : 0);
+    float dx = (KeyInput.isDown(KeyEvent.VK_A) ? -1 : 0) + (KeyInput.isDown(KeyEvent.VK_D) ? 1 : 0);
+    float dy = (KeyInput.isDown(KeyEvent.VK_W) ? -1 : 0) + (KeyInput.isDown(KeyEvent.VK_S) ? 1 : 0);
 
     if (dx != 0 && dy != 0) {
-      vx += speed * dx * DIAGONAL_MULTIPLIER;
-      vy += speed * dy * DIAGONAL_MULTIPLIER;
-    } else {
-      vx += speed * dx;
-      vy += speed * dy;
+      float len = (float) Math.sqrt(dx * dx + dy * dy);
+      dx /= len;
+      dy /= len;
     }
+    vx = speed * dx;
+    vy = speed * dy;
   }
 
   @Override
   public void fixedUpdate() {
+    super.fixedUpdate();
+
     x += vx * Time.FIXED_DELTA;
     y += vy * Time.FIXED_DELTA;
   }
 
   @Override
-  public void render(Graphics2D g) {
+  public void render(Graphics2D g, float alpha) {
+    float renderX = lerp(prevX, x, alpha);
+    float renderY = lerp(prevY, y, alpha);
+
     g.setColor(Color.WHITE);
-    g.fillRect((int) x, (int) y, 32, 32);
+    g.fillRect((int) renderX, (int) renderY, 32, 32);
   }
 }

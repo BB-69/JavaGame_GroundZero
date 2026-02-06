@@ -17,7 +17,7 @@ public final class Engine {
     StateManager.update();
   }
 
-  public static void render(Graphics2D g) {
-    StateManager.render(g);
+  public static void render(Graphics2D g, float alpha) {
+    StateManager.render(g, alpha);
   }
 }

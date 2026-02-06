@@ -1,7 +1,7 @@
 package game.states;
 
 import java.awt.Graphics2D;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import game.core.GameState;
 import game.entities.Entity;
@@ -9,7 +9,7 @@ import game.entities.Player;
 
 public class PlayState extends GameState {
 
-  private static HashSet<Entity> entities = new HashSet<>();
+  private static ArrayList<Entity> entities = new ArrayList<>();
 
   public PlayState() {
     entities.add(new Player(0, 0));
@@ -27,10 +27,9 @@ public class PlayState extends GameState {
     }
   }
 
-  public void render(Graphics2D g) {
+  public void render(Graphics2D g, float alpha) {
     for (Entity e : entities) {
-      e.render(g);
+      e.render(g, alpha);
     }
   }
-
 }

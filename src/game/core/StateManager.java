@@ -24,8 +24,8 @@ public class StateManager {
       current.update();
   }
 
-  public static void render(Graphics2D g) {
+  public static void render(Graphics2D g, float alpha) {
     if (current != null)
-      current.render(g);
+      current.render(g, alpha);
   }
 }

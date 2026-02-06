@@ -7,9 +7,9 @@ import game.input.MouseInput;
 
 public final class Game {
 
-  public static void init(GamePanel panel) {
-    KeyInput.init(panel);
-    MouseInput.init(panel);
+  public static void init(GameCanvas canvas) {
+    KeyInput.init(canvas);
+    MouseInput.init(canvas);
 
     StateManager.setState(new PlayState());
   }
