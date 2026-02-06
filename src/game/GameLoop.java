@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
+import game.util.Log;
 import game.util.Time;
 
 public class GameLoop implements Runnable {
@@ -47,6 +48,9 @@ public class GameLoop implements Runnable {
       float frameTime = Time.update();
       accumulator += frameTime;
 
+      if (accumulator > 0.25) {
+        Log.logInfo(String.format("Stutter with Accumulator: %.2f", accumulator));
+      }
       while (accumulator >= Time.FIXED_DELTA) {
         Engine.fixedUpdate();
         accumulator -= Time.FIXED_DELTA;
