@@ -11,7 +11,7 @@ public class AssetManager {
 
   // ===== STORAGE =====
   private static final HashMap<String, BufferedImage> textures = new HashMap<>();
-  private static final HashMap<String, Clip> sounds = new HashMap<>();
+  private static final HashMap<String, SoundData> sounds = new HashMap<>();
   private static final HashMap<String, Font> fonts = new HashMap<>();
 
   // ===== TEXTURES =====
@@ -32,7 +32,7 @@ public class AssetManager {
   }
 
   // ===== SOUNDS =====
-  public static Clip getSound(String name) {
+  public static SoundData getSoundData(String name) {
     if (sounds.containsKey(name))
       return sounds.get(name);
 
@@ -42,11 +42,12 @@ public class AssetManager {
         throw new RuntimeException("Missing sound: " + name);
 
       AudioInputStream ais = AudioSystem.getAudioInputStream(is);
-      Clip clip = AudioSystem.getClip();
-      clip.open(ais);
+      AudioFormat format = ais.getFormat();
+      byte[] data = ais.readAllBytes();
 
-      sounds.put(name, clip);
-      return clip;
+      SoundData sd = new SoundData(data, format);
+      sounds.put(name, sd);
+      return sd;
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -75,7 +76,7 @@ public class AssetManager {
   // ===== CLEANUP =====
   public static void clear() {
     textures.clear();
-    sounds.values().forEach(Clip::close);
+    sounds.clear();
     sounds.clear();
     fonts.clear();
   }
