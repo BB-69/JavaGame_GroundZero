@@ -1,11 +1,13 @@
 package game.entities;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 
 import game.core.node.Entity;
 import game.core.node.Sprite;
 import game.input.KeyInput;
+import game.input.MouseInput;
 import game.util.Time;
 
 public class Player extends Entity {
@@ -44,16 +46,25 @@ public class Player extends Entity {
 
     x += vx * Time.FIXED_DELTA;
     y += vy * Time.FIXED_DELTA;
+
+    if (MouseInput.isAnyDown()) {
+      Point pos = MouseInput.getPosition();
+      x = pos.x;
+      y = pos.y;
+    }
   }
 
   @Override
   public void render(Graphics2D g, float alpha) {
-    int renderX = (int) lerp(prevX, x, alpha);
-    int renderY = (int) lerp(prevY, y, alpha);
+    if (MouseInput.isAnyDown()) {
+      sprite.setPosition(x, y);
+    } else {
+      int renderX = (int) lerp(prevX, x, alpha);
+      int renderY = (int) lerp(prevY, y, alpha);
 
-    // g.setColor(Color.WHITE);
-    // g.fillRect((int) renderX, (int) renderY, 32, 32);
-    sprite.setPosition(renderX, renderY);
+      sprite.setPosition(renderX, renderY);
+    }
+
     sprite.draw(g);
   }
 }

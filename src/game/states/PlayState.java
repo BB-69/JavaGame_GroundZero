@@ -15,6 +15,8 @@ public class PlayState extends GameState {
   private EntityManager entityManager;
 
   public PlayState() {
+    stateName = "play";
+
     entityManager = new EntityManager(new ArrayList<>(Arrays.asList(
         new Player(0, 0))));
   }

@@ -21,6 +21,7 @@ public final class MouseInput implements MouseListener, MouseMotionListener {
   public static void init(java.awt.Component component) {
     MouseInput listener = new MouseInput();
     component.addMouseListener(listener);
+    component.addMouseMotionListener(listener);
   }
 
   /* ===================== FRAME UPDATE ===================== */
@@ -69,6 +70,14 @@ public final class MouseInput implements MouseListener, MouseMotionListener {
 
   public static boolean isExited() {
     return !isIn && lastIsIn;
+  }
+
+  public static Point getPosition() {
+    return position;
+  }
+
+  public static Point getLastPosition() {
+    return lastPosition;
   }
 
   /* ===================== EVENTS ===================== */
