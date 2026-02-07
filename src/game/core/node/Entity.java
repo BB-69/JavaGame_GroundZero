@@ -1,9 +1,10 @@
-package game.entities;
+package game.core.node;
 
 import java.awt.Graphics2D;
 
 public abstract class Entity {
 
+  private boolean isActive = true;
   protected float x, y;
   protected float prevX, prevY;
   protected float vx, vy;
@@ -19,5 +20,13 @@ public abstract class Entity {
 
   protected float lerp(float a, float b, float t) {
     return a + (b - a) * t;
+  }
+
+  protected void setIsActive(boolean isActive) {
+    this.isActive = isActive;
+  }
+
+  public boolean isActive() {
+    return isActive;
   }
 }

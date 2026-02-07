@@ -4,40 +4,35 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import game.core.GameState;
-import game.entities.Entity;
 import game.entities.Player;
-import game.util.Time;
+import game.core.EntityManager;
 
 public class PlayState extends GameState {
 
-  private static ArrayList<Entity> entities = new ArrayList<>();
+  private EntityManager entityManager;
 
   public PlayState() {
-    entities.add(new Player(0, 0));
+    entityManager = new EntityManager(new ArrayList<>(Arrays.asList(
+        new Player(0, 0))));
   }
 
   public void fixedUpdate() {
-    for (Entity e : entities) {
-      e.fixedUpdate();
-    }
+    entityManager.fixedUpdate();
   }
 
   public void update() {
-    for (Entity e : entities) {
-      e.update();
-    }
+    entityManager.update();
   }
 
   public void render(Graphics2D g, float alpha) {
-    for (Entity e : entities) {
-      e.render(g, alpha);
-    }
+    entityManager.render(g, alpha);
 
     g.setFont(new Font("Arial", Font.BOLD, 24));
     g.setColor(Color.WHITE);
 
-    g.drawString(String.format("%.2f FPS", Math.clamp(1 / Time.deltaTime, 0, 67.67)), 10, 35);
+    g.drawString("Hello World!", 10, 35);
   }
 }

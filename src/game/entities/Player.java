@@ -3,6 +3,7 @@ package game.entities;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
+import game.core.node.Entity;
 import game.core.node.Sprite;
 import game.input.KeyInput;
 import game.util.Time;
