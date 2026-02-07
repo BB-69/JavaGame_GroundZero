@@ -2,7 +2,7 @@ package game.util;
 
 public class Log {
   private static void logWithPrefix(String prefix, String content) {
-    System.out.println(String.format("%s:%s: %s", System.nanoTime(), prefix, content));
+    System.out.println(String.format("%s:%s: %s", Time.getTextCurrent(), prefix, content));
   }
 
   public static void logInfo(String content) {
